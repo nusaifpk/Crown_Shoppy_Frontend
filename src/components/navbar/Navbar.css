@@ -24,10 +24,10 @@
 }
 .user_nav_icons i{
   transition: all 0.3s ease-in-out;
-  font-size: 20px;
+  font-size: 15px;
 }
 .user_nav_icons i:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.667);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.667);
   border-radius: 15px;
   padding: 5px;
 }

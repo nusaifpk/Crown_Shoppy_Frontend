@@ -5,7 +5,6 @@ import './Register.css';
 import userInstance from '../../axios_interceptors/user_axios';
 import toast from 'react-hot-toast';
 import ClipLoader from 'react-spinners/ClipLoader';
-import axios from 'axios';
 
 const Register = ({ open, handleClose, onLoginClick }) => {
   const navigate = useNavigate();
@@ -13,22 +12,28 @@ const Register = ({ open, handleClose, onLoginClick }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: '',
   });
 
   const [otp, setOtp] = useState('');
-  const [email,setEmail] = useState('')
+  const [email, setEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
+    if (e.target.name === 'phone' && !/^\d*$/.test(e.target.value)) {
+      return;
+    }
+  
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,22 +63,23 @@ const Register = ({ open, handleClose, onLoginClick }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await userInstance.post("/verify",{ email, otp });
+      const response = await userInstance.post("/verify", { email, otp });
       console.log(response);
       if (response.data.status === "success") {
         toast.success('Registration success');
+        handleClose();
+        onLoginClick();
       } else {
         setErrorMessage(response.data.message);
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
       setErrorMessage('OTP verification failed. Please try again.');
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -100,6 +106,17 @@ const Register = ({ open, handleClose, onLoginClick }) => {
                 value={formData.email}
                 onChange={handleChange}
                 fullWidth
+                required
+              />
+              <TextField
+                label="Phone"
+                type="tel"
+                variant="outlined"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 10 }}
                 required
               />
               <TextField

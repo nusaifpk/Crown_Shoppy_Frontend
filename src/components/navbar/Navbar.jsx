@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Register from '../register/Register'; 
-import Login from '../login/Login'; // Import the Login modal component
+import Login from '../login/Login'; 
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false); 
-  const [showLoginModal, setShowLoginModal] = useState(false); // State for login modal
+  const [showLoginModal, setShowLoginModal] = useState(false); 
 
   const toggleSearch = () => {
     setShowSearch(!showSearch);
@@ -19,7 +19,7 @@ const NavBar = () => {
 
   const handleOpenRegisterModal = () => {
     setShowRegisterModal(true);
-    setShowLoginModal(false); // Ensure login modal is closed
+    setShowLoginModal(false); 
   };
 
   const handleCloseRegisterModal = () => {
@@ -28,13 +28,23 @@ const NavBar = () => {
 
   const handleOpenLoginModal = () => {
     setShowLoginModal(true);
-    setShowRegisterModal(false); // Ensure register modal is closed
+    setShowRegisterModal(false); 
   };
 
   const handleCloseLoginModal = () => {
     setShowLoginModal(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    localStorage.removeItem('phone');
+    navigate('/');
+  };
+
+  const name = localStorage.getItem('name')
   return (
     <>
       <Navbar expand="lg" variant="light" className='main_nav'>
@@ -65,10 +75,23 @@ const NavBar = () => {
 
             <div className="user_nav_icons">
               <input type="search" placeholder='Search here...' className={`search-input ${showSearch ? 'show' : ''}`} />
-              <Nav.Link onClick={toggleSearch}><i className="fa fa-search" /></Nav.Link>
-              <Nav.Link onClick={handleOpenRegisterModal}><i className="fa fa-user-circle" /></Nav.Link> {/* Open Register modal */}
-              <Nav.Link onClick={() => navigate('/cart')}><i className="fa fa-shopping-cart" /></Nav.Link>
-              <Nav.Link><i className="fab fa-whatsapp" /></Nav.Link>
+              <Nav.Link onClick={toggleSearch}><i className="fa fa-search" title="Search" /></Nav.Link>
+              {!name && (
+              <Nav.Link onDoubleClick={() => navigate('/admin')} onClick={handleOpenLoginModal}>Login</Nav.Link>
+            )}
+
+            {name && (
+              <NavDropdown title={<b>{name}</b>} id="NavbarScrollingDropdown" >
+                <>
+                  <NavDropdown.Item onClick={() => navigate('/profile')}>Profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => navigate('/cart')}>Cart</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={handleLogout}><i className='fas fa-sign-out-alt' /> Logout</NavDropdown.Item>
+                </>
+              </NavDropdown>
+            )}
+              <Nav.Link onClick={() => navigate('/admin/login')}><i className="fas fa-user-shield" title='Admin' /></Nav.Link>
+              <Nav.Link><i className="fab fa-whatsapp" title='Whatsapp now' /></Nav.Link>
             </div>
           </Navbar.Collapse>
         </Container>
