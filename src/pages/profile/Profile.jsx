@@ -27,12 +27,12 @@ const Profile = () => {
         const fetchUserProfile = async () => {
             try {
                 const response = await userInstance.get(`/profile/${userId}`);
+                console.log(response);
                 setProfile(response.data.data);
                 setEditProfile(response.data.data.name);
                 setPreviewImg(response.data.data.profileImg);
             } catch (error) {
                 console.error('Error fetching user profile:', error);
-                // Handle error appropriately, e.g., redirect or show error message
             }
         };
         fetchUserProfile();
@@ -50,7 +50,7 @@ const Profile = () => {
 
             await userInstance.put(`/profile/${userId}`, formData);
 
-            setProfile({ ...profile, profileImg: previewImg }); // Assuming previewImg reflects updated profile image
+            setProfile({ ...profile, profileImg: previewImg }); 
             setIsEditing(false);
             toast.success('Profile image updated successfully.');
         } catch (error) {

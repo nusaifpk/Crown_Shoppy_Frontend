@@ -1,3 +1,12 @@
 .admin-container{
     display: flex;
+    background-color: rgb(243, 243, 243);
+}
+.admin-home-page{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.enquiry-section{
+    padding: 10px;
 }

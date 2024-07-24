@@ -48,6 +48,7 @@ const Login = ({ open, handleClose, onRegisterClick }) => {
     try {
       setLoading(true);
       const response = await userInstance.post('/login', formData);
+      console.log(response);
       const { token, user } = response.data;
       handleToken(token, user);
       toast.success('Login successful');

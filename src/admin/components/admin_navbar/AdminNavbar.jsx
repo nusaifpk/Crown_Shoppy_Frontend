@@ -3,12 +3,10 @@ import "./AdminNavbar.css";
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Profile from '../../../assets/profile.png';
 
 const AdminNavbar = () => {
-  const [showSearch, setShowSearch] = useState(false);
-  const toggleSearch = () => {
-    setShowSearch(!showSearch);
-  };
+  const username = localStorage.getItem('adminUsername').toUpperCase()
   return (
     <>
       <Navbar expand="lg" variant="light" className='main_nav'>
@@ -25,21 +23,22 @@ const AdminNavbar = () => {
 
           <Navbar.Collapse id="navbarButtonsExample">
             <Nav className="me-auto mb-2 mb-lg-0">
-              <Nav.Link>PRODUCTS</Nav.Link>
-              <NavDropdown title="CATEGORIES" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Watches</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Shoes</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Sunglasses</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Wallet</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Belt</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link>ABOUT</Nav.Link>
-              <Nav.Link>CONTACT</Nav.Link>
+              <Nav.Link>Temp</Nav.Link>
             </Nav>
 
             <div className="user_nav_icons">
-              <input type="search" placeholder='Search here...' className={`search-input ${showSearch ? 'show' : ''}`} />
-              <Nav.Link onClick={toggleSearch}><i className="fa fa-search" title="Search" /></Nav.Link>
+              <NavDropdown title="Branch Access" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action  1</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">Action  2</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link><i className='fas fa-clock'/> Last login</Nav.Link>
+              <div className='admin_name_section'>
+                <Nav.Link><img src={Profile} className='profile-logo'/></Nav.Link>
+                <NavDropdown title={<>{username}<br/><span>admin</span></>} id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action  1</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.1">Action  2</NavDropdown.Item>
+                </NavDropdown>
+              </div>
             </div>
           </Navbar.Collapse>
         </Container>

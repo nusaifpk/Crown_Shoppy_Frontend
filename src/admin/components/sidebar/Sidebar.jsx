@@ -9,6 +9,7 @@ const Sidebar = () => {
     const handleLogout = () => {
         toast.success('logged out success')
         localStorage.removeItem('adminToken')
+        localStorage.removeItem('username')
     }
 
     return (

@@ -24,7 +24,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
-    box-shadow: 0 12px 14px 0  rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
@@ -39,7 +39,8 @@
     border-radius: 5px;
 }
 
-.custom-right-arrow, .custom-left-arrow {
+.custom-right-arrow,
+.custom-left-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -61,16 +62,50 @@
     left: 10px;
 }
 
-.custom-right-arrow:hover, .custom-left-arrow:hover {
+.custom-right-arrow:hover,
+.custom-left-arrow:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.home_head h1{
+.home_head h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.home_head h4{
+
+.home_head h4 {
     text-align: start;
 }
-.home_head h1 span{
-  color: rgb(18, 168, 18);
+
+.home_head h1 span {
+    color: rgb(18, 168, 18);
+}
+
+/* Responsive adjustments for mobile view */
+@media (max-width: 464px) {
+    .main_home {
+        padding: 20px 10px; /* Adjusted padding for mobile screens */
+    }
+
+    .carousel-wrapper {
+        width: 95%;
+    }
+
+    .item_card {
+        width: 100%; /* Full width for mobile screens */
+        height: auto; /* Adjust height based on content */
+    }
+
+    .item_card img {
+        height: auto; /* Adjust height based on aspect ratio */
+    }
+
+    .item_card h3 {
+        bottom: 5px; /* Adjust position for mobile screens */
+        padding: 3px 5px; /* Adjust padding for mobile screens */
+    }
+
+    .custom-right-arrow,
+    .custom-left-arrow {
+        font-size: 20px; /* Adjust arrow size for mobile screens */
+        padding: 3px; /* Adjust padding for mobile screens */
+    }
 }

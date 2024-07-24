@@ -7,7 +7,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import adminInstance from '../../../axios_interceptors/admin_axios';
 
 const AdminLogin = () => {
-
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,21 +29,22 @@ const AdminLogin = () => {
       const { token } = response.data;
 
       localStorage.setItem('adminToken', token);
+      localStorage.setItem('adminUsername', formData.username);
+
       toast.success("Admin login success...");
       navigate('/admin/');
 
       setTimeout(() => {
         localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUsername');
         toast.warning("Session expired. Please log in again.");
       }, 3600000);
 
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Login error:', error);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
-
 
   return (
     <div className='main_div'>

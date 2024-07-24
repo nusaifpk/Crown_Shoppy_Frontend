@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Navbar.css";
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +6,12 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Register from '../register/Register'; 
 import Login from '../login/Login'; 
+import userInstance from '../../axios_interceptors/user_axios';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
+  const [profile, setProfile ] = useState();
   const [showRegisterModal, setShowRegisterModal] = useState(false); 
   const [showLoginModal, setShowLoginModal] = useState(false); 
 
@@ -36,15 +38,25 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-    localStorage.removeItem('phone');
+    localStorage.clear()
     navigate('/');
   };
 
   const name = localStorage.getItem('name')
+  const userId = localStorage.getItem('userId')
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await userInstance.get(`/profile/${userId}`)
+        setProfile(response.data.data.profileImg)
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+    fetchUser()
+  },[])
   return (
     <>
       <Navbar expand="lg" variant="light" className='main_nav'>
@@ -63,14 +75,14 @@ const NavBar = () => {
             <Nav className="me-auto mb-2 mb-lg-0">
               <Nav.Link onClick={() => navigate('/products')}>PRODUCTS</Nav.Link>
               <NavDropdown title="CATEGORIES" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Watches</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Shoes</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Sunglasses</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Wallet</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Belt</NavDropdown.Item>
+                <NavDropdown.Item>Watches</NavDropdown.Item>
+                <NavDropdown.Item>Shoes</NavDropdown.Item>
+                <NavDropdown.Item>Sunglasses</NavDropdown.Item>
+                <NavDropdown.Item>Wallet</NavDropdown.Item>
+                <NavDropdown.Item>Belt</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link>ABOUT</Nav.Link>
-              <Nav.Link>CONTACT</Nav.Link>
+              <Nav.Link onClick={() => navigate('contact')}>CONTACT</Nav.Link>
             </Nav>
 
             <div className="user_nav_icons">
@@ -81,7 +93,7 @@ const NavBar = () => {
             )}
 
             {name && (
-              <NavDropdown title={<b>{name}</b>} id="NavbarScrollingDropdown" >
+              <NavDropdown title={<b><img src={profile} className='profile_img' /> {name}</b>} id="NavbarScrollingDropdown" >
                 <>
                   <NavDropdown.Item onClick={() => navigate('/profile')}>Profile</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => navigate('/cart')}>Cart</NavDropdown.Item>
@@ -91,7 +103,7 @@ const NavBar = () => {
               </NavDropdown>
             )}
               <Nav.Link onClick={() => navigate('/admin/login')}><i className="fas fa-user-shield" title='Admin' /></Nav.Link>
-              <Nav.Link><i className="fab fa-whatsapp" title='Whatsapp now' /></Nav.Link>
+              <Nav.Link href='https://wa.me/+919497630421'><i className="fab fa-whatsapp" title='Whatsapp now' /></Nav.Link>
             </div>
           </Navbar.Collapse>
         </Container>
