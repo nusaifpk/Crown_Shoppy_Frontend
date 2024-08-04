@@ -137,8 +137,7 @@ form {
 .information {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-}
+  /* margin-bottom: 1rem; */}
 
 .information p {
   margin-left: 10px;
@@ -146,7 +145,7 @@ form {
 }
 
 .socialMedia {
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 .socialIcons a {

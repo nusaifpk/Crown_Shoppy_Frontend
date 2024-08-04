@@ -1,0 +1,17 @@
+
+.mobile-footer{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color:#04BA71;
+    color: white;
+}
+.mobile-footer-icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mobile-footer-icons p{
+    font-size: 12px;
+}
