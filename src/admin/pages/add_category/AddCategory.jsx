@@ -113,9 +113,9 @@ const AddCategory = () => {
         </table>
 
         <div className="categories_section">
-          <h1>Add Categories</h1>
+          {/* <h1>Add Categories</h1> */}
           <div className="add_section">
-            <TextField
+            <TextField fullWidth
               id=""
               label="Add Categories"
               variant="outlined"

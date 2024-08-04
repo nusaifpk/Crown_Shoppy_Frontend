@@ -52,13 +52,12 @@ const ContactForm = () => {
 
             <div className={styles.info}>
               <div className={styles.information}>
-                <FontAwesomeIcon icon={faEnvelope} /> &nbsp;&nbsp;
-                <p>nusaifputhiyakath1@gmail.com</p>
+                <p><FontAwesomeIcon icon={faEnvelope} /> &nbsp;&nbsp;nusaifputhiyakath1@gmail.com</p>
               </div>
               <div className={styles.information}>
-                <FontAwesomeIcon icon={faPhone} />
-                &nbsp;&nbsp;
-                <p>+919497630421</p>
+                
+                
+                <p><FontAwesomeIcon icon={faPhone} />&nbsp;&nbsp;+919497630421</p>
               </div>
             </div>
 
@@ -89,7 +88,7 @@ const ContactForm = () => {
               <h3 className={styles.title1}>Contact us</h3>
               <div className={styles.inputContainer}>
                 <CssTextField
-                  label="Username"
+                  label="Name"
                   variant="outlined"
                   fullWidth
                   InputLabelProps={{ style: { color: "white" } }}

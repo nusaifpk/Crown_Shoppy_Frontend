@@ -73,7 +73,7 @@ const NavBar = () => {
 
           <Navbar.Collapse id="navbarButtonsExample">
             <Nav className="me-auto mb-2 mb-lg-0">
-              <Nav.Link onClick={() => navigate('/products')}>PRODUCTS</Nav.Link>
+              <Nav.Link onClick={() => navigate('/products')}>ALL PRODUCTS</Nav.Link>
               <NavDropdown title="CATEGORIES" id="basic-nav-dropdown">
                 <NavDropdown.Item>Watches</NavDropdown.Item>
                 <NavDropdown.Item>Shoes</NavDropdown.Item>
