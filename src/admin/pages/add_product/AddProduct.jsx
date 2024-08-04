@@ -13,6 +13,7 @@ const AddProduct = () => {
   const [productData, setProductData] = useState({
     name: '',
     category: '',
+    price: '',
     images: [],
   });
 
@@ -112,6 +113,15 @@ const AddProduct = () => {
               ))}
             </Select>
           </FormControl>
+          <TextField
+            type='number'
+            name='price'
+            label='Price'
+            variant='outlined'
+            value={productData.price}
+            onChange={handleChange}
+            // required
+          />
           <input
             type='file'
             name='images'
